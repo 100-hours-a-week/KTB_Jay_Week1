@@ -1,7 +1,14 @@
 package org.example;
 
+import org.example.view.UserView;
+
 public class Start {
+
     public static void main(String[] args) {
-        System.out.println("🏋️‍♂️ 헬스장 예약 시스템 시작!");
+
+        UserView userView =
+                new UserView();
+
+        userView.start();
     }
 }
