@@ -174,3 +174,7 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+# IntelliJ 설정 파일 제외
+.idea/
+*.iml
