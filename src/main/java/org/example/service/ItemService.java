@@ -6,13 +6,16 @@ import org.example.repository.ItemRepository;
 import java.util.List;
 
 public class ItemService {
-    private ItemRepository itemRepository = new ItemRepository();
 
-    public ItemService(ItemRepository irepo){
-        this.itemRepository = irepo;
+    private ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+
+        this.itemRepository = itemRepository;
     }
 
-    public List<Item> getAllItems(){
+    public List<Item> getItems() {
+
         return itemRepository.findAll();
     }
 }

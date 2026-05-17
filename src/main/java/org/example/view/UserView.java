@@ -1,15 +1,18 @@
 package org.example.view;
 
-import org.example.Controller.UserController;
+import org.example.controller.UserController;
+import org.example.domain.user.User;
 
 import java.util.Scanner;
 
 public class UserView {
     private Scanner sc = new Scanner(System.in);
     private UserController userController;
+    private OrderView orderView;
 
-    public UserView(UserController userController){
+    public UserView(UserController userController, OrderView orderView){
         this.userController = userController;
+        this.orderView = orderView;
     }
     public void start() {
 
@@ -28,7 +31,14 @@ public class UserView {
                 userController.register();
             }
             else if (choice == 2){
-                userController.login();
+                User user = userController.login();
+
+                if (user != null){
+
+                    System.out.println("로그인 성공!!");
+
+                    orderView.start(user);
+                }
             }
             // 종료
             else if (choice == 3) {

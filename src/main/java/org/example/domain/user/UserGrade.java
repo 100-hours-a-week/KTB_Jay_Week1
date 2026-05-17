@@ -1,6 +1,7 @@
 package org.example.domain.user;
 
-enum UserGrade {
-    Basic,
+public enum UserGrade {
+
+    BASIC,
     VIP
 }

@@ -2,23 +2,41 @@ package org.example.domain.user;
 
 public class User {
 
-    // 해당 값을 초기화할 때 final을 실무에서는 어떻게 붙히나
     private String id;
     private String password;
+
+    // 주문 횟수
     private int orderCount;
+
+    // 잔액
     private int balance;
 
+    // 회원가입용 생성자
     public User(String id,
                 String password,
                 int balance) {
 
         this.id = id;
         this.password = password;
+
+        // 처음 가입하면 주문횟수는 0
         this.orderCount = 0;
+
         this.balance = balance;
     }
 
-    // 값들을 외부에서 받을 수 있는 get method들
+    // CSV 복원용 생성자
+    public User(String id,
+                String password,
+                int orderCount,
+                int balance) {
+
+        this.id = id;
+        this.password = password;
+        this.orderCount = orderCount;
+        this.balance = balance;
+    }
+
     public String getId() {
         return id;
     }
@@ -27,21 +45,54 @@ public class User {
         return password;
     }
 
+    public int getOrderCount() {
+        return orderCount;
+    }
+
     public int getBalance() {
         return balance;
     }
 
-    public int getOrderCount(){
-        return orderCount;
+    // 돈 차감
+    public void deductBalance(int price) {
+
+        // 돈 부족하면 예외
+        if (balance < price) {
+            throw new RuntimeException("잔액 부족");
+        }
+
+        // 잔액 차감
+        this.balance -= price;
     }
 
-    public void increaseOrderCount(){
-        orderCount ++;
+    // 주문횟수 증가
+    public void increaseOrderCount() {
+        orderCount++;
     }
-    // CSV 저장용 문자열
-    public String CsvtoString() {
+
+    // 회원 등급 반환
+    public UserGrade getGrade() {
+
+        if (orderCount >= 5) {
+            return UserGrade.VIP;
+        }
+
+        return UserGrade.BASIC;
+    }
+
+    // 기존 유저 값 덮어쓰기
+    public void copyFrom(User other) {
+
+        this.orderCount = other.orderCount;
+        this.balance = other.balance;
+    }
+
+    // csv 저장용 문자열
+    public String toCsv() {
+
         return id + "," +
                 password + "," +
+                orderCount + "," +
                 balance;
     }
 }
