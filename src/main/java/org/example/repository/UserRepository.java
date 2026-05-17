@@ -1,6 +1,6 @@
 package org.example.repository;
 
-import org.example.domain.User;
+import org.example.domain.user.User;
 
 
 import java.io.*;
@@ -9,18 +9,14 @@ import java.util.List;
 
 public class UserRepository {
 
-    private static final String FILE_PATH =
-            "data/users.csv";
+    private static final String FILE_PATH = "data/users.csv";
 
     // 회원 저장
     public void save(User user) {
 
         try {
-
-            BufferedWriter bw =
-                    new BufferedWriter(
-                            new FileWriter(FILE_PATH, true)
-                    );
+            //append가 true 면 뒤에 붙히는 역할
+            BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true));
 
             bw.write(user.CsvtoString());
 
@@ -37,25 +33,19 @@ public class UserRepository {
     // 전체 회원 조회
     public List<User> findAll() {
 
-        List<User> users =
-                new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         try {
 
-            BufferedReader br =
-                    new BufferedReader(
-                            new FileReader(FILE_PATH)
-                    );
+            BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));
 
             String line;
 
             while ((line = br.readLine()) != null) {
 
-                String[] data =
-                        line.split(",");
+                String[] data = line.split(",");
 
-                User user =
-                        new User(
+                User user = new User(
                                 data[0],
                                 data[1],
                                 Integer.parseInt(data[2])
